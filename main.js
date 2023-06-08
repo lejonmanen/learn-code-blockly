@@ -1,24 +1,37 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import Blockly from 'blockly'
+import { javascriptGenerator } from 'blockly/javascript'
+import { config } from './blocklyConfig.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+let bdiv = document.querySelector('.blockly')
+let btn = document.querySelector('#initBtn')
 
-setupCounter(document.querySelector('#counter'))
+
+function init() {
+	
+	console.log('injecting...');
+	let ws = Blockly.inject(bdiv, config)
+	// console.log('x', ws);
+	return ws
+}
+let workspace = init()
+
+function updateCode(event) {
+	// console.log('main: update code', event);
+	const jsCode = javascriptGenerator.workspaceToCode(workspace)
+	let output = document.querySelector('.codeOutput')
+	console.log('main: update code', jsCode);
+	output.innerText = jsCode
+}
+workspace.addChangeListener(updateCode)
+
+// workspace.addTopBlock()
+
+btn.addEventListener('click', () => {
+	init()
+	btn.disabled = true
+})
+
+
+
+workspace.toolbox

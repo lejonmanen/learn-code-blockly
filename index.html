@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+	<link rel="icon" type="image/svg+xml" href="/javascript.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title> Blockly JS </title>
-	<script type="module" src="/main.js"></script>
+	<title> Get coding | Blockly </title>
+	<script type="module" src="/src/main.js"></script>
 </head>
 <body>
 	<header>
-		<h1>Let's get coding!</h1>
+		<h1> Let's get coding! </h1>
+		<button id="load-btn"> Load </button>
+		<button id="save-btn"> Save </button>
 	</header>
 	<main>
-		<div>
+		<div style="display: none;">
 			<button id="initBtn" type="button"> Init Blockly </button>
 		</div>
 
 		<div class="blockly"> </div>
 
-		<div>
-			<code class="codeOutput"></code>
+		<div class="codeOutput">
+			<code></code>
 		</div>
 	</main>
 </body>

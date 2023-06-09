@@ -12,6 +12,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "blockly": "^9.3.3"
+    "blockly": "^9.3.3",
+    "toastify-js": "^1.12.0"
   }
 }

@@ -6,9 +6,8 @@ function makeToast(text) {
 		text,
 		duration: 3000,
 		gravity: 'bottom',
-		position: 'right',
-		close: true,
-		// newwindow
+		position: 'center',
+		close: true
 	}).showToast()
 }
 

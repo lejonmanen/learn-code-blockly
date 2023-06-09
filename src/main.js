@@ -4,17 +4,19 @@ import * as Sv from 'blockly/msg/sv';
 import { javascriptGenerator } from 'blockly/javascript'
 import { config } from './blocklyConfig.js'
 import { save, load } from './saveLoad.js'
+import { makeToast } from './makeToast.js'
 
 let bdiv = document.querySelector('.blockly')
 let btn = document.querySelector('#initBtn')
 let loadBtn = document.querySelector('#load-btn')
 let saveBtn = document.querySelector('#save-btn')
+let copyBtn = document.querySelector('.codeOutput button')
+let output = document.querySelector('.codeOutput code')
 
 // TODO
 // Variable: let instead of var, undefined as default value
 // Higher order function blocks: forEach, map, find, filter
 // Objects, null, undefined
-// Save to localStorage. Array
 
 function init() {
 	Blockly.setLocale(Sv);
@@ -29,8 +31,7 @@ let workspace = init()
 function updateCode(event) {
 	// console.log('main: update code', event);
 	const jsCode = javascriptGenerator.workspaceToCode(workspace)
-	let output = document.querySelector('.codeOutput')
-	console.log('main: update code', jsCode);
+	// console.log('main: update code', jsCode);
 	output.innerText = jsCode
 }
 workspace.addChangeListener(updateCode)
@@ -44,6 +45,10 @@ btn.addEventListener('click', () => {
 
 loadBtn.addEventListener('click', () => load(workspace))
 saveBtn.addEventListener('click', () => save(workspace))
+copyBtn.addEventListener('click', () => {
+	navigator.clipboard.writeText(output.innerText)
+	makeToast('Koden kopierad!')
+})
 
 try {
 	load(workspace)

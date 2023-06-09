@@ -18,16 +18,14 @@ function defaultData() {
 
 function save(workspace, name='') {
 	let json = Blockly.serialization.workspaces.save(workspace);
-	console.log('save 1', json);
+	// console.log('save 1', json);
 	let saveData = tryParse(localStorage.getItem(LS_KEY))
 	if( !name ) name = twoWords()
 
 	let oldName = saveData.snippets[saveData.selected].name
 	let newData = { name: oldName, data: json }
 	saveData.snippets[saveData.selected].data = json
-	// data.snippets.push({ name, data: json })
-	// data.selected = data.snippets.length - 1
-	console.log('save 2', saveData);
+	// console.log('save 2', saveData);
 
 	localStorage.setItem(LS_KEY, JSON.stringify(saveData))
 	makeToast('Sparade block.')
@@ -35,7 +33,7 @@ function save(workspace, name='') {
 function load(workspace) {
 	let data = tryParse(localStorage.getItem(LS_KEY))
 	let wsData = data.snippets[data.selected]  // {name,data}
-	console.log('load 1', wsData, wsData.data);
+	// console.log('load 1', wsData, wsData.data);
 	Blockly.serialization.workspaces.load(wsData.data, workspace);
 	makeToast('Laddade block.')
 }

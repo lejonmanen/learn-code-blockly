@@ -19,21 +19,20 @@ function label(text) {
 const toolbox = {
 	"kind": "categoryToolbox",
 	"contents": [
-		category('⭐Starred', [], 'Common blocks'),
+		category('⭐Favoriter', ['text', 'math_number', 'logic_boolean', 'console_log', 'controls_ifelse', 'controls_whileUntil', 'variables_get', 'variables_set'], 'Vanliga block'),
 		
-		category('Control', ['controls_if', 'controls_ifelse', 'controls_whileUntil', 'controls_for', 'controls_repeat', 'controls_repeat_ext'], 'Controlling the flow of the code.'),
-		
-		category('Logic (compare)', ['logic_compare', 'logic_operation', 'logic_boolean', 'logic_negate' ], 'Logical operations, comparing values resulting in true or false.'),
+		category('Värden', ['math_number', 'text', 'text_join', 'text_length', 'logic_boolean'], 'Number, String, Boolean'),
+		category('Variabler', ['variables_get', 'variables_set'], 'Använd variabler för att spara värden, så de kan användas senare i koden.'),
 
-		category('Numbers', ['math_arithmetic', 'math_number', 'math_random_int', 'math_round'], 'Mathematical operations.'),
-		category('Strings', ['text', 'text_join', 'text_length'], 'Strings'),
-		category('Booleans', ['logic_boolean'], 'A value that can be true or false. Use with Logic.'),
-		category('Variables', ['variables_get', 'variables_set'], 'Variables are used to store values for later use.'),
-				
-		category('Functions', ['console_log'], 'Utility functions that do something or return a value.'),
+		category('Programflöde', ['controls_if', 'controls_ifelse', 'controls_whileUntil', 'controls_for', 'controls_repeat', 'controls_repeat_ext'], 'Kontrollera flödet med val och upprepning.'),
 		
-		category('Lists', ["lists_create_empty", "lists_create_with", "lists_getIndex", "lists_setIndex", "lists_length"], 'Lists are collections of several values.'),
-		category('My functions', ["procedures_callnoreturn", "procedures_callreturn", "procedures_defnoreturn", "procedures_defreturn"], 'Create your own functions'),
+		category('Logik (jämföra värden)', ['logic_compare', 'logic_operation', 'logic_boolean', 'logic_negate' ], 'Logiska operatorer, jämför värden och få true eller false.'),
+
+		category('Matematik', ['math_arithmetic', 'math_random_int', 'math_round'], 'Matematiska operationer.'),
+				
+		category('Funktioner', ["procedures_callnoreturn", "procedures_callreturn", "procedures_defnoreturn", "procedures_defreturn", 'console_log'], 'Skapa egna eller använd befintliga.'),
+		
+		category('Listor', ["lists_create_empty", "lists_create_with", "lists_getIndex", "lists_setIndex", "lists_length"], 'Listor används för att spara flera värden av samma sort.'),
 	]
 }
 const blocks = [

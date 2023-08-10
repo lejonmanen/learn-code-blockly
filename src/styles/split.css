@@ -1,0 +1,28 @@
+.splitter {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.separator {
+	margin: 2px 0;
+	/* cursor: col-resize; */
+	cursor: grab;
+	background-color: #aaa;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='10'><path d='M0 2 h30 M0 5 h30 M0 8 h30' fill='none' stroke='black'/></svg>");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 12px;
+	/* Prevent the browser's built-in drag from interfering */
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/*
+In case you need to style the panes
+*/
+/* .splitter > :first-child, .splitter > :nth-child(3) {
+	min-height: 5em;
+} */

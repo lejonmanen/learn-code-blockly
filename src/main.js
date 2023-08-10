@@ -1,17 +1,22 @@
-import './style.css'
+import './styles/style.css'
+import './styles/split.css'
 import Blockly from 'blockly'
 import * as Sv from 'blockly/msg/sv';
 import { javascriptGenerator } from 'blockly/javascript'
 import { config } from './blocklyConfig.js'
+import hljs from './highlight/highlight.min.js';
+import './highlight/styles.min.css';
+
 import { save, load } from './saveLoad.js'
 import { makeToast } from './makeToast.js'
+import { enableSplit } from './splitPane';
 
-let bdiv = document.querySelector('.blockly')
-let btn = document.querySelector('#initBtn')
-let loadBtn = document.querySelector('#load-btn')
-let saveBtn = document.querySelector('#save-btn')
-let copyBtn = document.querySelector('.codeOutput button')
-let output = document.querySelector('.codeOutput code')
+const bdiv = document.querySelector('.blockly')
+const btn = document.querySelector('#initBtn')
+const loadBtn = document.querySelector('#load-btn')
+const saveBtn = document.querySelector('#save-btn')
+const copyBtn = document.querySelector('.codeOutput button')
+const output = document.querySelector('.codeOutput code')
 
 // TODO
 // Variable: let instead of var, undefined as default value
@@ -19,11 +24,17 @@ let output = document.querySelector('.codeOutput code')
 // Objects, null, undefined
 
 function init() {
+	
 	Blockly.setLocale(Sv);
 	console.log('main: Injecting Blockly in page...');
-	
 	let ws = Blockly.inject(bdiv, config)
-	// console.log('x', ws);
+
+	// Resize code input and output areas
+	enableSplit(() => Blockly.svgResize(ws))
+
+	// JavaScript syntax highlighting
+	hljs.highlightElement(output)
+	
 	return ws
 }
 let workspace = init()
@@ -31,8 +42,8 @@ let workspace = init()
 function updateCode(event) {
 	// console.log('main: update code', event);
 	const jsCode = javascriptGenerator.workspaceToCode(workspace)
-	// console.log('main: update code', jsCode);
-	output.innerText = jsCode
+	output.textContent = jsCode
+	hljs.highlightElement(output)
 }
 workspace.addChangeListener(updateCode)
 // workspace.addTopBlock()

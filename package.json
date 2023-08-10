@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "blockly": "^9.3.3",
+    "driver.js": "^1.2.1",
     "highlight": "^0.2.4",
     "toastify-js": "^1.12.0"
   }

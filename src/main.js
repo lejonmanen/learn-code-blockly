@@ -10,9 +10,11 @@ import './highlight/styles.min.css';
 import { save, load } from './saveLoad.js'
 import { makeToast } from './makeToast.js'
 import { enableSplit } from './splitPane';
+import { showTour } from './driverTour';
 
 const bdiv = document.querySelector('.blockly')
 const btn = document.querySelector('#initBtn')
+const tourBtn = document.querySelector('#tour-btn')
 const loadBtn = document.querySelector('#load-btn')
 const saveBtn = document.querySelector('#save-btn')
 const copyBtn = document.querySelector('.codeOutput button')
@@ -22,6 +24,9 @@ const output = document.querySelector('.codeOutput code')
 // Variable: let instead of var, undefined as default value
 // Higher order function blocks: forEach, map, find, filter
 // Objects, null, undefined
+
+let workspace = init()
+showTour()
 
 function init() {
 	
@@ -37,7 +42,6 @@ function init() {
 	
 	return ws
 }
-let workspace = init()
 
 function updateCode(event) {
 	// console.log('main: update code', event);
@@ -45,15 +49,19 @@ function updateCode(event) {
 	output.textContent = jsCode
 	hljs.highlightElement(output)
 }
+
+
+// Listeners
+
 workspace.addChangeListener(updateCode)
 // workspace.addTopBlock()
 // workspace.toolbox
-
 btn.addEventListener('click', () => {
 	init()
 	btn.disabled = true
 })
 
+tourBtn.addEventListener('click', showTour)
 loadBtn.addEventListener('click', () => load(workspace))
 saveBtn.addEventListener('click', () => save(workspace))
 copyBtn.addEventListener('click', () => {
@@ -61,6 +69,7 @@ copyBtn.addEventListener('click', () => {
 	makeToast('Koden kopierad!')
 })
 
+// Load saved blocks from previous session
 try {
 	load(workspace)
 	let msg = 'Laddade sparade block från tidigare session.'

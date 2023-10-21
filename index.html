@@ -6,13 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title> Koda med Blockly </title>
 	
-  <script type="module" crossorigin src="./assets/index-1d2fbbb1.js"></script>
-  <link rel="stylesheet" href="./assets/index-1fb697b6.css">
+  <script type="module" crossorigin src="./assets/index-1ee33234.js"></script>
+  <link rel="stylesheet" href="./assets/index-9c3e28c8.css">
 </head>
 <body>
 	<header>
 		<h1> Koda med Blockly </h1>
 		<button id="tour-btn"> Guide </button>
+		<button id="menu"> ⚙️ </button>
 		<button id="load-btn"> Ladda </button>
 		<button id="save-btn"> Spara </button>
 	</header>
@@ -32,5 +33,33 @@
 			</div>
 		</div>
 	</main>
+
+	<div class="overlay">
+		<dialog id="options-dialog">
+			<h1> Ditt projekt </h1>
+			<input type="text" value="" />
+			<button> Spara nytt </button>
+			<hr>
+			<h1> Tidigare kod </h1>
+			<p> Hämtas från localstorage </p>
+			<section class="projects">
+				<p class="item">
+					Den 2023-10-21, klockan 12:33
+					<button> Byt till </button>
+				</p>
+				<p class="item">
+					Den 2023-10-21, klockan 12:33
+					<button> Byt till </button>
+				</p>
+				<p class="item">
+					Den 2023-10-21, klockan 12:33
+					<button> Byt till </button>
+				</p>
+				<!-- TODO "idag", "igår", X dagar sedan -->
+			</section>
+			<p><em> Ditt nuvarande projekt sparas när du byter till ett annat. </em></p>
+
+		</dialog>
+	</div>
 </body>
 </html>

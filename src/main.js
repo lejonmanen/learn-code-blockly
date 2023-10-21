@@ -1,5 +1,6 @@
 import './styles/style.css'
 import './styles/split.css'
+import './styles/menu.css'
 import Blockly from 'blockly'
 import * as Sv from 'blockly/msg/sv';
 import { javascriptGenerator } from 'blockly/javascript'
@@ -7,10 +8,11 @@ import { config } from './blocklyConfig.js'
 import hljs from './highlight/highlight.min.js';
 import './highlight/styles.min.css';
 
-import { save, load } from './saveLoad.js'
+import { save, load, getSettings } from './saveLoad.js'
 import { makeToast } from './makeToast.js'
 import { enableSplit } from './splitPane';
 import { showTour } from './driverTour';
+import { setupDialog } from './dialog.js'
 
 const bdiv = document.querySelector('.blockly')
 const btn = document.querySelector('#initBtn')
@@ -21,12 +23,19 @@ const copyBtn = document.querySelector('.codeOutput button')
 const output = document.querySelector('.codeOutput code')
 
 // TODO
+// Show tour based on localStorage. Checkbox on first tour box.
 // Variable: let instead of var, undefined as default value
 // Higher order function blocks: forEach, map, find, filter
 // Objects, null, undefined
 
+const settings = getSettings()
+if( settings.showGuide ) {
+	console.log('sett', settings);
+	showTour()
+}
 let workspace = init()
-showTour()
+setupDialog(workspace)  // save/load dialog
+
 
 function init() {
 	

@@ -38,7 +38,7 @@ h1 {
   font-size: 2em;
   line-height: 1.1;
   margin: 0;
-  margin-bottom: 1.0rem;
+  /* margin-bottom: 1.0rem; */
 }
 
 .read-the-docs {
@@ -46,18 +46,29 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid #000000;
-  padding: 0.6em 1.2em;
+  border-radius: 0.5em;
+  margin: 0em 0.25em;
+  /* border: 1px solid #000000; */
+  /* padding: 0.6em 1.2em; */
+  padding: 0.2em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, all 0.4s;
+
+  --button-bg: #CAEDAA;
+  background-color: var(--button-bg);
+  border: none;
+  box-shadow: 0em 0em 0.2em 0em #517530;
 }
 button:hover {
-  border-color: #646cff;
+	border-color: #646cff;
+	transform: scale(1.08);
+	--button-highlight: #B1DF88;
+	background-color: var(--button-highlight);
+	box-shadow: 0em 0em 0.1em 0.1em #517530;
 }
 button:focus,
 button:focus-visible {
@@ -72,9 +83,9 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  /* button {
     background-color: #f9f9f9;
-  }
+  } */
 }
 
 body {
@@ -116,7 +127,7 @@ main {
 	background-color: rgb(243, 243, 243);
 	color: rgb(212, 213, 227);
 	overflow-y: scroll;
-	padding: 0.5em;
+	padding: 0 0.5em;
 	position: relative;
 }
 .codeOutput code {
@@ -124,8 +135,12 @@ main {
 }
 .codeOutput button {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 0.25em;
+	right: 0.25em;
+}
+.codeOutput pre {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 /* SVG element */
 /* Use this to style labels in the Blockly workspace */

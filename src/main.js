@@ -9,7 +9,7 @@ import hljs from './highlight/highlight.min.js';
 import './highlight/styles.min.css';
 
 import { save, load, getSettings } from './saveLoad.js'
-import { makeToast } from './makeToast.js'
+import { makeToast } from './utils/makeToast.js'
 import { enableSplit } from './splitPane';
 import { showTour } from './driverTour';
 import { setupDialog } from './dialog.js'
@@ -17,7 +17,7 @@ import { setupDialog } from './dialog.js'
 const bdiv = document.querySelector('.blockly')
 const btn = document.querySelector('#initBtn')
 const tourBtn = document.querySelector('#tour-btn')
-const loadBtn = document.querySelector('#load-btn')
+// const loadBtn = document.querySelector('#load-btn')
 const saveBtn = document.querySelector('#save-btn')
 const copyBtn = document.querySelector('.codeOutput button')
 const output = document.querySelector('.codeOutput code')
@@ -35,7 +35,7 @@ if( settings.showGuide ) {
 	settings.showGuide = false
 }
 let workspace = init()
-setupDialog(workspace, settings)  // save/load dialog
+setupDialog()  // save/load dialog
 
 
 function init() {
@@ -79,7 +79,7 @@ function getName() {
 	return document.querySelector('#options-dialog input').value || ''
 }
 // loadBtn.addEventListener('click', () => load(workspace))
-saveBtn.addEventListener('click', () => save(workspace, getName(), settings))
+// saveBtn.addEventListener('click', () => save(getName()))
 copyBtn.addEventListener('click', () => {
 	navigator.clipboard.writeText(output.innerText)
 	makeToast('Koden kopierad!')
@@ -88,8 +88,15 @@ copyBtn.addEventListener('click', () => {
 // Load saved blocks from previous session
 try {
 	load(workspace)
-	let msg = 'Laddade sparade block från tidigare session.'
-	console.log(msg);
+	// let msg = 'Laddade sparade block från tidigare session.'
+	// console.log(msg);
 } catch(error) {
 	console.log('Failed to load blocks. Most likely cause is corrupted data in localStorage.\n' + error.message);
 }
+
+function setWorkspaceTitle(name='Namnlöst projekt') {
+	document.title = `${name} | Koda med Blockly`
+	document.querySelector('#snippet-title').innerText = name
+}
+
+export { workspace, settings, setWorkspaceTitle }

@@ -1,5 +1,5 @@
 /* Gear button */
-#menu {
+#menu, button.ghost {
 	border: none;
 	border-radius: 100%;
 	background: none;
@@ -44,12 +44,15 @@
 	filter: blur(20px);
 } */
 #options-dialog {
-	/* width: 100%;
-	height: 100%; */
 	filter: none;
 	background-color: #ECE8FB;
 	--border-color: #A49DC1;
 	z-index: 9001;
+	overflow-y: scroll;
+	height: 85vh;
+	border: 2px solid #56506C;
+	/* box-shadow: inset 0 0 0.4em 0.0em black; */
+	border-radius: 0.2em;
 }
 
 dialog h1 {
@@ -103,6 +106,9 @@ dialog .projects .item:nth-child(odd) {
 	background-color: #D2CDE7;
 
 }
+/* dialog .projects .item button:ghost {
+
+} */
 dialog .projects .item button {
 	margin-left: 1em;
 	transform: translateY(-0.2em);
@@ -111,4 +117,26 @@ dialog .projects .item button {
 dialog .projects .item button:hover {
 	transform: translateY(0em);
 	box-shadow: 0em 0em 0.1em #6A6679;
+}
+dialog .projects .item button.ghost {
+	box-shadow: none;
+	margin: 0 0.25em;
+}
+dialog .projects .item button.ghost:hover {
+	box-shadow: 0em 0em 0.1em #6A6679;
+	background: none;
+}
+
+dialog .item .vertical {
+	display: flex;
+	flex-direction: column;
+}
+dialog .item p {
+	margin: 0;
+}
+dialog .item button {
+	align-self: center;
+}
+dialog .item .name {
+	font-weight: bold;
 }

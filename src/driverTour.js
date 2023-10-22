@@ -62,7 +62,7 @@ export function showDialogTour() {
 		steps: [
 			{
 				element: '#options-rename',
-				popover: { title: 'Spara din kod', description: 'Klicka för att spara din kod. Programmet slumpar ett namn, om du inte vill hitta på ett eget.' }
+				popover: { title: 'Spara din kod', description: 'Klicka för att spara din kod. Programmet slumpar ett namn.' }
 			},
 			{
 				element: '#options-dialog .projects',

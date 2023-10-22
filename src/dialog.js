@@ -1,28 +1,29 @@
 // The dialog uses CSS in menu.css
 
-import { twoWords } from "./funRandom"
-import { saveNew, getProjects } from "./saveLoad"
+import { twoWords } from "./utils/funRandom"
+import { saveNew, getProjects, getDataFromLS, exportCurrentProject, importProject, saveDataToLS, save } from "./saveLoad"
 import { showDialogTour } from "./driverTour"
 
-let workspace = null
+// let workspace = null
+import { workspace, settings, setWorkspaceTitle } from './main.js'
+import { formatTimeSince } from "./utils/formatting"
 
-export function setupDialog(ws, settings) {
-	// connect gear button to dialog
-	// show/hide events
-	// localstorage tjofräs
-	workspace = ws
 
-	const gearButton = document.querySelector('#menu')
-	const dialog = document.querySelector('#options-dialog')
+const dialog = document.querySelector('#options-dialog')
+const gearButton = document.querySelector('#menu')
+const overlay = document.querySelector('.overlay')
+
+
+function closeAction() {
+	gearButton.classList.remove('open')
+	overlay.classList.remove('open')
+	dialog.close()
+}
+
+export function setupDialog() {
 	const inputName = document.querySelector('#options-dialog input')
 	const saveBtn = document.querySelector('#options-rename > button')
-	const overlay = document.querySelector('.overlay')
 
-	const closeAction = () => {
-		gearButton.classList.remove('open')
-		overlay.classList.remove('open')
-		hideDialog(dialog)
-	}
 	const openAction = () => {
 		gearButton.classList.add('open')
 		overlay.classList.add('open')
@@ -44,15 +45,14 @@ export function setupDialog(ws, settings) {
 		}
 	})
 	saveBtn.addEventListener('click', () => {
-		saveNew(workspace, inputName.value || twoWords() )
-		renderDialog(dialog)
+		saveNew(inputName.value || twoWords() )
+		renderDialog()
 	})
 	dialog.addEventListener('click', e => e.stopPropagation())
 	// showDialog(dialog)
 }
 
-function renderDialog(dialog) {
-	// TODO använd valt projekt om det finns
+function renderDialog() {
 	dialog.querySelector('input').value = twoWords()
 
 	const projects = getProjects()
@@ -60,39 +60,68 @@ function renderDialog(dialog) {
 	projects.sort((a, b) => a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0)
 	projectContainer.innerHTML = ''
 	projects.forEach(p => {
-		const ts = formatTimestamp(p.timestamp)
+		const ts = formatTimeSince(p.timestamp)
 		const item = document.createElement('p')
 		item.classList.add('item')
-		item.innerHTML = `<span>Den ${ts} | ${p.name}</span>`
+		item.innerHTML = `
+		<div class="vertical">
+			<p class="name">${p.name}</p> <p>${ts}</p>
+		</div>
+		`
 		const btn = document.createElement('button')
 		btn.innerText = 'Byt till'
+		const removeBtn = document.createElement('button')
+		removeBtn.innerText = '🗑️'
+		removeBtn.alt = 'Ta bort'
+		removeBtn.className = 'ghost'
+		btn.addEventListener('click', () => loadCode(p))
+		removeBtn.addEventListener('click', () => deleteCode(p))
+
 		item.append(btn)
-		// TODO btn.addEventListener byta till projekt
-		// TODO remove-button 🗑️
+		item.append(removeBtn)
+		projectContainer.append(item)
 		projectContainer.append(item)
 	})
 }
-function showDialog(dialog) {
-	renderDialog(dialog)
-	dialog.show()
-}
-function formatTimestamp(ts) {
-	const d = new Date(ts)
-	const fmo = formatNumber(d.getMonth())
-	const fd = formatNumber(d.getDate())
-	const fh = formatNumber(d.getHours())
-	const fmi = formatNumber(d.getMinutes())
-	const fs = formatNumber(d.getSeconds())
-	return `${d.getFullYear()}-${fmo}-${fd} ${fh}:${fmi}:${fs}`
-}
-function formatNumber(n, digits=2) {
-	n = String(n)
-	while( n.length < digits ) {
-		n = '0' + n
-	}
-	return n
+
+function loadCode(p) {
+	// console.log('loadCode', p);
+	// Save current project
+	const current = exportCurrentProject()
+	const lsData = getDataFromLS()
+	// const index = projects.findIndex(p => p.id === lsData.currentId)
+	lsData.snippets = lsData.snippets.map(s => s.id !== p.id ? s : current )
+
+	// Load selected project
+	lsData.currentId = p.id 
+	importProject(p.data)
+	setWorkspaceTitle(p.name)
+	closeAction()  // close dialog (simulate click on gear)
 }
 
-function hideDialog(dialog) {
-	dialog.close()
+function deleteCode(p) {
+	// console.log('deleteCode', p);
+	// Save current project first
+	const lsData = getDataFromLS()
+	const name = lsData.snippets.find(s => s.id === lsData.currentId)?.name || 'Clown fiesta'
+	save(name)
+
+	lsData.snippets = lsData.snippets.filter(s => s.id !== p.id)
+	if( lsData.currentId === p.id ) {
+		// If we removed the current project
+		lsData.currentId = lsData.snippets[0]?.id || null
+	}
+	saveDataToLS(lsData)
+	// load all from LS
+	// delete project from array
+	// save back to LS
+
+	renderDialog()
 }
+
+
+function showDialog() {
+	renderDialog()
+	dialog.show()
+}
+

@@ -32,9 +32,10 @@ const settings = getSettings()
 if( settings.showGuide ) {
 	console.log('sett', settings);
 	showTour()
+	settings.showGuide = false
 }
 let workspace = init()
-setupDialog(workspace)  // save/load dialog
+setupDialog(workspace, settings)  // save/load dialog
 
 
 function init() {
@@ -70,9 +71,15 @@ btn.addEventListener('click', () => {
 	btn.disabled = true
 })
 
-tourBtn.addEventListener('click', showTour)
-loadBtn.addEventListener('click', () => load(workspace))
-saveBtn.addEventListener('click', () => save(workspace))
+tourBtn.addEventListener('click', () => {
+	showTour()	
+	settings.showDialogTour = true
+})
+function getName() {
+	return document.querySelector('#options-dialog input').value || ''
+}
+// loadBtn.addEventListener('click', () => load(workspace))
+saveBtn.addEventListener('click', () => save(workspace, getName(), settings))
 copyBtn.addEventListener('click', () => {
 	navigator.clipboard.writeText(output.innerText)
 	makeToast('Koden kopierad!')

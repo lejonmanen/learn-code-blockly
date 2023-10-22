@@ -7,7 +7,8 @@ const LS_KEY = 'koda-med-blockly'
 function defaultData() {
 	return {
 		settings: {
-			showGuide: true
+			showGuide: true,
+			showDialogGuide: true
 		},
 		currentIndex: null,
 		snippets: [
@@ -30,11 +31,16 @@ function getSettings() {
 }
 
 // Returns name of saved project
-function save(workspace, name='') {
+function save(workspace, name='', settings=null) {
 	let json = Blockly.serialization.workspaces.save(workspace);
 	// console.log('save 1', json);
 	let currentData = tryParse(localStorage.getItem(LS_KEY))
 	// Current data is either old data or fresh default data
+
+	console.log('Saving, settings=', settings);
+	if( settings != null ) {
+		currentData.settings = settings
+	}
 
 	if( !name ) name = twoWords()
 	let newData = { name, timestamp: Date.now(), data: json }

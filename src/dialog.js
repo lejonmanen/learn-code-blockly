@@ -2,10 +2,11 @@
 
 import { twoWords } from "./funRandom"
 import { saveNew, getProjects } from "./saveLoad"
+import { showDialogTour } from "./driverTour"
 
 let workspace = null
 
-export function setupDialog(ws) {
+export function setupDialog(ws, settings) {
 	// connect gear button to dialog
 	// show/hide events
 	// localstorage tjofräs
@@ -14,7 +15,7 @@ export function setupDialog(ws) {
 	const gearButton = document.querySelector('#menu')
 	const dialog = document.querySelector('#options-dialog')
 	const inputName = document.querySelector('#options-dialog input')
-	const saveBtn = document.querySelector('#options-dialog > button')
+	const saveBtn = document.querySelector('#options-rename > button')
 	const overlay = document.querySelector('.overlay')
 
 	const closeAction = () => {
@@ -26,6 +27,11 @@ export function setupDialog(ws) {
 		gearButton.classList.add('open')
 		overlay.classList.add('open')
 		showDialog(dialog)
+		console.log('Settings: ', settings);
+		if( settings.showDialogTour ) {
+			showDialogTour()
+			settings.showDialogTour = false
+		}
 	}
 
 	overlay.addEventListener('click', closeAction)
@@ -51,6 +57,7 @@ function renderDialog(dialog) {
 
 	const projects = getProjects()
 	const projectContainer = document.querySelector('dialog .projects')
+	projects.sort((a, b) => a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0)
 	projectContainer.innerHTML = ''
 	projects.forEach(p => {
 		const ts = formatTimestamp(p.timestamp)
@@ -75,7 +82,8 @@ function formatTimestamp(ts) {
 	const fd = formatNumber(d.getDate())
 	const fh = formatNumber(d.getHours())
 	const fmi = formatNumber(d.getMinutes())
-	return `${d.getFullYear()}-${fmo}-${fd} ${fh}:${fmi}`
+	const fs = formatNumber(d.getSeconds())
+	return `${d.getFullYear()}-${fmo}-${fd} ${fh}:${fmi}:${fs}`
 }
 function formatNumber(n, digits=2) {
 	n = String(n)

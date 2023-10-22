@@ -12,7 +12,7 @@
 		<h1> Koda med Blockly </h1>
 		<button id="tour-btn"> Guide </button>
 		<button id="menu"> ⚙️ </button>
-		<button id="load-btn"> Ladda </button>
+		<!-- <button id="load-btn"> Ladda </button> -->
 		<button id="save-btn"> Spara </button>
 	</header>
 	<main>
@@ -35,11 +35,12 @@
 	<div class="overlay">
 		<dialog id="options-dialog">
 			<h1> Ditt projekt </h1>
-			<input type="text" value="" />
-			<button> Spara nytt </button>
+			<div id="options-rename">
+				<input type="text" value="" />
+				<button> Spara nytt </button>
+			</div>
 			<hr>
 			<h1> Tidigare kod </h1>
-			<p> Hämtas från localstorage </p>
 			<section class="projects">
 				<p class="item">
 					Den 2023-10-21, klockan 12:33

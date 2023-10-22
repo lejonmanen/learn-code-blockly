@@ -1,16 +1,20 @@
 import { driver } from 'driver.js'
 import 'driver.js/dist/driver.css'
 
-const driverObj = driver()
-driverObj.setConfig({
+const defaultSettings = {
 	animate: true,
 	popoverClass: 'popover',
-	// disableActiveInteraction: true
 	showProgress: true,
+	progressText: `{{current}} av {{total}}`,
 	showButtons: ['next', 'previous'],
 	nextBtnText: 'Nästa',
 	prevBtnText: 'Föregående',
-	doneBtnText: 'Stäng',
+	doneBtnText: 'Stäng'
+}
+
+const driverObj = driver()
+driverObj.setConfig({
+	...defaultSettings,
 
 	steps: [
 		{
@@ -32,23 +36,43 @@ driverObj.setConfig({
 			popover: { title: 'Kod', description: 'De block du lägger in omvandlas till kod, som visas här. <br><br> Tips: klicka på "Kopiera kod" för att kopiera all kod i rutan.'}
 		},
 		{
+			element: '#menu',
+			popover: { title: 'Meny', description: 'Här kan du spara eller ta bort din kod, eller ladda ett tidigare projekt.' }
+		}
+		/*{
 			element: '#save-btn',
 			popover: {
 				title: 'Spara',
 				description: 'Klicka för att slänga ändringar och spara ditt arbete i webbläsaren.'
 			}
-		},
-		{
-			element: '#load-btn',
-			popover: {
-				title: 'Ladda',
-				description: 'Klicka för att återgå till senast sparade version. <br> <br> Nästa gång du besöker sidan, kommer den automatiskt att försöka ladda den senast sparade. <br> <br> Det var allt - börja koda!'
-			}
-		}
+		}*/
 	]
 })
 
 export function showTour() {
+	console.log('go gadget 1');
 	driverObj.drive()
 }
 
+export function showDialogTour() {
+	console.log('go gadget 2');
+	const driverObj2 = driver()
+	driverObj2.setConfig({
+		...defaultSettings,
+		steps: [
+			{
+				element: '#options-rename',
+				popover: { title: 'Spara din kod', description: 'Klicka för att spara din kod. Programmet slumpar ett namn, om du inte vill hitta på ett eget.' }
+			},
+			{
+				element: '#options-dialog .projects',
+				popover: { title: 'Dina projekt', description: 'Här kan du byta till ett tidigare projekt.' }
+			},
+			{
+				element: '#options-dialog',
+				popover: { title: 'Stänga', description: 'Klicka i det gråa området utanför dialogrutan för att stänga den.' }
+			}
+		]
+	})
+	driverObj2.drive()
+}

@@ -33,12 +33,18 @@ driverObj.setConfig({
 		},
 		{
 			element: '.codeOutput',
-			popover: { title: 'Kod', description: 'De block du lägger in omvandlas till kod, som visas här. <br><br> Tips: klicka på "Kopiera kod" för att kopiera all kod i rutan.'}
+			popover: { title: 'Kod', description: 'De block du lägger in omvandlas till kod, som visas här. <br><br> Tips: klicka på "Kopiera kod" för att kopiera all kod i rutan. <br><br> Nu kör vi!'}
 		},
 		{
-			element: '#menu',
-			popover: { title: 'Meny', description: 'Här kan du spara eller ta bort din kod, eller ladda ett tidigare projekt.' }
+			popover: {
+				title: 'Nu kör vi!',
+				description: 'Du kan börja med att dra ut strängblocket (dubbla citattecken, ") och blocket console.log. Kombinera dem, så du får kod som skulle skriva ut "Hello world".'
+			}
 		}
+		// {
+		// 	element: '#menu',
+		// 	popover: { title: 'Meny', description: 'Här kan du spara eller ta bort din kod, eller ladda ett tidigare projekt.' }
+		// }
 		/*{
 			element: '#save-btn',
 			popover: {
@@ -50,12 +56,10 @@ driverObj.setConfig({
 })
 
 export function showTour() {
-	console.log('go gadget 1');
 	driverObj.drive()
 }
 
 export function showDialogTour() {
-	console.log('go gadget 2');
 	const driverObj2 = driver()
 	driverObj2.setConfig({
 		...defaultSettings,

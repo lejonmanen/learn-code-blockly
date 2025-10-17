@@ -30,7 +30,6 @@ const output = document.querySelector('.codeOutput code')
 
 const settings = getSettings()
 if( settings.showGuide ) {
-	console.log('sett', settings);
 	showTour()
 	settings.showGuide = false
 }
@@ -39,9 +38,8 @@ setupDialog()  // save/load dialog
 
 
 function init() {
-	
 	Blockly.setLocale(Sv);
-	console.log('main: Injecting Blockly in page...');
+	console.log('Injecting Blockly...');
 	let ws = Blockly.inject(bdiv, config)
 
 	// Resize code input and output areas
@@ -53,6 +51,7 @@ function init() {
 	return ws
 }
 
+
 function updateCode(event) {
 	// console.log('main: update code', event);
 	const jsCode = javascriptGenerator.workspaceToCode(workspace)
@@ -61,7 +60,7 @@ function updateCode(event) {
 }
 
 
-// Listeners
+// ------ Listeners ------- //
 
 workspace.addChangeListener(updateCode)
 // workspace.addTopBlock()
@@ -85,18 +84,25 @@ copyBtn.addEventListener('click', () => {
 	makeToast('Koden kopierad!')
 })
 
-// Load saved blocks from previous session
-try {
-	load(workspace)
-	// let msg = 'Laddade sparade block från tidigare session.'
-	// console.log(msg);
-} catch(error) {
-	console.log('Failed to load blocks. Most likely cause is corrupted data in localStorage.\n' + error.message);
-}
-
 function setWorkspaceTitle(name='Namnlöst projekt') {
 	document.title = `${name} | Koda med Blockly`
 	document.querySelector('#snippet-title').innerText = name
 }
+
+
+function loadLastSession() {
+	// Load saved blocks from previous session
+	try {
+		load(workspace)
+		// let msg = 'Laddade sparade block från tidigare session.'
+		// console.log(msg);
+	} catch(error) {
+		console.log('Failed to load blocks. Most likely cause is corrupted data in localStorage.\n' + error.message);
+	}
+}
+
+// TODO: fix save/load, then enable this
+// loadLastSession()
+
 
 export { workspace, settings, setWorkspaceTitle }

@@ -28,7 +28,7 @@ export function setupDialog() {
 		gearButton.classList.add('open')
 		overlay.classList.add('open')
 		showDialog(dialog)
-		console.log('Settings: ', settings);
+		// console.log('Settings: ', settings);
 		if( settings.showDialogTour ) {
 			showDialogTour()
 			settings.showDialogTour = false

@@ -33,12 +33,20 @@ driverObj.setConfig({
 		},
 		{
 			element: '.codeOutput',
-			popover: { title: 'Kod', description: 'De block du lägger in omvandlas till kod, som visas här. <br><br> Tips: klicka på "Kopiera kod" för att kopiera all kod i rutan. <br><br> Nu kör vi!'}
+			popover: { title: 'Kod', description: 'De block du lägger in omvandlas till kod, som visas här. <br><br> Tips: klicka på "Kopiera kod" för att kopiera all kod i rutan. Klistra in koden i en .js-fil och kör den genom att skriva i terminalen: <code> node exempel.js </code> '}
+		},
+		{
+			element: '#export-btn',
+			popover: { title: 'Spara workspace', description: 'Klicka här för att kopiera alla block du har lagt ut. <br> <br> Klistra in koden i valfri fil, till exempel "save01.txt", med Ctrl+V.'}
+		},
+		{
+			element: '#import-btn',
+			popover: { title: 'Ladda workspace', description: 'Börja med att kopiera koden för block som du tidigare har sparat. (Ctrl+C) Klicka sedan här för att ladda blocken i arbetsytan.'}
 		},
 		{
 			popover: {
 				title: 'Nu kör vi!',
-				description: 'Du kan börja med att dra ut strängblocket (dubbla citattecken, ") och blocket console.log. Kombinera dem, så du får kod som skulle skriva ut "Hello world".'
+				description: 'Klicka på "Favoriter", dra ut strängblocket "_" och blocket console.log. Kombinera dem, så du får kod som kan skriva ut "Hello world".'
 			}
 		}
 		// {

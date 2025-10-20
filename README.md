@@ -5,7 +5,7 @@ Learn coding by draggin blocks instead of typing. Intended for use during first 
 This project uses Vanilla JavaScript and the following npm packages:
 + blockly - place and drag code blocks
 + driver.js - app tour
-+ highlight - syntax highlighting for produced JS code
++ highlight.js - syntax highlighting for produced JS code
 + toastify-js - show popups
 + gh-pages - publish
 

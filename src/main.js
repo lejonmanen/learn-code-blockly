@@ -6,11 +6,10 @@ import * as Sv from 'blockly/msg/sv';
 import { javascriptGenerator } from 'blockly/javascript'
 import { config } from './blocklyConfig.js'
 
-// import hljs from 'highlight';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 hljs.registerLanguage('javascript', javascript);
-// import './highlight/styles.min.css';
+import 'highlight.js/styles/default.css';
 
 import { save, load, getSettings } from './saveLoad.js'
 import { makeToast } from './utils/makeToast.js'
@@ -45,7 +44,9 @@ setupDialog()  // save/load dialog
 
 
 function init() {
-	setLocale(Sv);
+	setLocale(Sv)
+	console.log('** Learn with Blockly 2.0 **')
+	console.log("Ignore the warning about getAllVariables, it's internal to Blockly. Hopefully it will be fixed in future versions.")
 	console.log('Injecting Blockly...');
 	let ws = inject(bdiv, config)
 
@@ -53,14 +54,13 @@ function init() {
 	enableSplit(() => svgResize(ws))
 
 	// JavaScript syntax highlighting
-	hljs.highlightElement(output)
-	
+	hljs.highlightElement(output, {language: 'javascript'})
+
 	return ws
 }
 
 
 function updateCode(event) {
-	// console.log('main: update code', event);
 	const jsCode = javascriptGenerator.workspaceToCode(workspace)
 	output.textContent = jsCode
 	output.dataset.highlighted = ''
@@ -79,7 +79,7 @@ btn.addEventListener('click', () => {
 })
 
 tourBtn.addEventListener('click', () => {
-	showTour()	
+	showTour()
 	settings.showDialogTour = true
 })
 
@@ -121,7 +121,6 @@ function loadLastSession() {
 		console.log('Failed to load blocks. Most likely cause is corrupted data in localStorage.\n' + error.message);
 	}
 }
-
 // TODO: fix save/load, then enable this
 // loadLastSession()
 

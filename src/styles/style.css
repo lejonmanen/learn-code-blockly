@@ -128,6 +128,8 @@ main {
 	height: 100%;
 }
 
+
+/* Koden som genereras av blocken */
 .codeOutput {
 	/* white-space: pre-wrap; */
 	border: 1px solid gray;
@@ -158,5 +160,8 @@ main {
 
 .popover.driver-popover {
 	background-color: #fde047;
+}
+.popover.driver-popover code {
+	font-family: monospace;
 }
 

@@ -1,5 +1,5 @@
 import { twoWords } from './utils/funRandom.js'
-import Blockly from 'blockly'
+import { serialization } from 'blockly'
 import { makeToast } from './utils/makeToast.js'
 import { workspace, settings, setWorkspaceTitle } from './main.js'
 
@@ -32,10 +32,10 @@ function getSettings() {
 }
 
 function exportCurrentProject() {
-	return Blockly.serialization.workspaces.save(workspace);
+	return serialization.workspaces.save(workspace);
 }
 function importProject(blocklyData) {
-	Blockly.serialization.workspaces.load(blocklyData, workspace);
+	serialization.workspaces.load(blocklyData, workspace);
 	makeToast('Laddade block.')
 }
 function getDataFromLS() {
